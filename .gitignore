@@ -1,3 +1,8 @@
+# .gitignore
+
+# Ignore Visual Studio temporary files, build results, and
+# folder containing project-level settings
+.vs/
 # ignore vendor static files
 src/staticfiles/vendors
 
