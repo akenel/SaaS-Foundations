@@ -4,6 +4,44 @@ Build the foundations for a Software as a Service business by leveraging Django,
 
 The goal of this project is to learn how to create a reusable foundation for building SaaS products. When release, this course will span multiple topics and give you a solid foundation into build your business.
 
+Video tutorials will be available on [CodingForEntrepreneurs.com](https://www.codingforentrepreneurs.com) and [YouTube](https://www.youtube.com/codingforentrepreneurs).
+## Topics
+https://status.railway.app/
+https://docs.djangoproject.com/en/5.1/
+
+https://stripe.com/docs/api
+https://stripe.com/docs/payments/checkout
+https://stripe.com/docs/api/checkout/sessions/create
+
+8 Basic Docker Commands || Docker Tutorial 4
+https://www.youtube.com/watch?v=JprTjTViaEA
+
+https://console.cloud.google.com
+https://cloud.google.com/sdk/docs/
+
+Create a One-Off Django Secret Key
+https://www.codingforentrepreneurs.com/blog/create-a-one-off-django-secret-key/
+From the Command Line
+python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
+
+https://www.enterprisedb.com/
+https://www.postgresql.org/
+https://www.postgresql.org/docs/13/index.html
+https://www.enterprisedb.com/accounts/register/biganimal
+https://www.enterprisedb.com/docs/edb-postgres-cloud/latest/quickstart.html
+https://www.enterprisedb.com/docs/edb-postgres-cloud/latest/quickstart.html#quickstart-create-database
+https://www.enterprisedb.com/docs/edb-postgres-cloud/latest/quickstart.html#quickstart-connect-database
+https://www.enterprisedb.com/docs/edb-postgres-cloud/latest/quickstart.html#quickstart-create-user
+https://www.enterprisedb.com/docs/edb-postgres-cloud/latest/quickstart.html#quickstart-connect-database
+https://www.enterprisedb.com/docs/edb-postgres-cloud/latest/quickstart.html#quickstart-create-table
+https://www.enterprisedb.com/docs/edb-postgres-cloud/latest/quickstart.html#quickstart-insert-data
+https://www.enterprisedb.com/docs/edb-postgres-cloud/latest/quickstart.html#quickstart-query-data
+https://www.enterprisedb.com/docs/edb-postgres-cloud/latest/quickstart.html#quickstart-update-data
+https://www.enterprisedb.com/docs/edb-postgres-cloud/latest/quickstart.html#quickstart-delete-data
+https://www.enterprisedb.com/docs/edb-postgres-cloud/latest/quickstart.html#quickstart-drop-table
+https://www.enterprisedb.com/docs/edb-postgres-cloud/latest/quickstart.html#quickstart-drop-database
+https://www.enterprisedb.com/docs/edb-postgres-cloud/latest/quickstart.html#quickstart-drop-user
+
 
 ## References
 
