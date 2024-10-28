@@ -118,12 +118,7 @@ WSGI_APPLICATION = "cfehome.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
+
 
 CONN_MAX_AGE = config("CONN_MAX_AGE", cast=int, default=300)
 DATABASE_URL = config("DATABASE_URL", default=None)
@@ -144,36 +139,33 @@ if DATABASE_URL is not None:
 # from dotenv import load_dotenv
 
 # Replace the DATABASES section of your settings.py with this
+DATABASES = {
+   'default': {
+     'ENGINE': 'django.db.backends.postgresql',
+     'NAME': config('PGDATABASE'),
+     'USER': config('PGUSER'),
+     'PASSWORD': config('PGPASSWORD'),
+     'HOST': config('PGHOST'),
+     'PORT': config('PGPORT', 5432),
+     'OPTIONS': {
+       'sslmode': 'require',
+     },
+   }
+ }
 # DATABASES = {
-#   'default': {
-#     'ENGINE': 'django.db.backends.postgresql',
-#     'NAME': config('PGDATABASE'),
-#     'USER': config('PGUSER'),
-#     'PASSWORD': config('PGPASSWORD'),
-#     'HOST': config('PGHOST'),
-#     'PORT': config('PGPORT', 5432),
-#     'OPTIONS': {
-#       'sslmode': 'require',
-#     },
-#   }
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
 # }
-
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
+    {        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",    },
+    {        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",    },
+    {        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",    },
+    {        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",    },
 ]
 
 # Django Allauth Config 
