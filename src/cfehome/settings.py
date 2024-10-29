@@ -9,8 +9,12 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+from urllib.parse import urlparse
 from decouple import config
 from pathlib import Path
+import os
+from os import getenv
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -55,7 +59,6 @@ if DEBUG:
         "127.0.0.1",
         "localhost"
     ]
-
 
 # Application definition
 
@@ -114,58 +117,58 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "cfehome.wsgi.application"
 
-
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Database configuration
 CONN_MAX_AGE = config("CONN_MAX_AGE", cast=int, default=300)
 DATABASE_URL = config("DATABASE_URL", default=None)
 
-if DATABASE_URL is not None:
+if DATABASE_URL:
     import dj_database_url
+    tmpPostgres = urlparse(DATABASE_URL)
     DATABASES = {
-        "default": dj_database_url.config(
-            default=DATABASE_URL,
-            conn_max_age=CONN_MAX_AGE,
-            conn_health_checks=True,
-        )
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': tmpPostgres.path[1:],  # Remove leading '/'
+            'USER': tmpPostgres.username,
+            'PASSWORD': tmpPostgres.password,
+            'HOST': tmpPostgres.hostname,
+            'PORT': tmpPostgres.port or 5432,
+            'OPTIONS': {
+                'sslmode': 'require',  # Add this line
+            }
+        }
+    }
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
     }
 
 
-# Add these at the top of your settings.py
-# from os import getenv
-# from dotenv import load_dotenv
-
-# Replace the DATABASES section of your settings.py with this
-DATABASES = {
-   'default': {
-     'ENGINE': 'django.db.backends.postgresql',
-     'NAME': config('PGDATABASE'),
-     'USER': config('PGUSER'),
-     'PASSWORD': config('PGPASSWORD'),
-     'HOST': config('PGHOST'),
-     'PORT': config('PGPORT', 5432),
-     'OPTIONS': {
-       'sslmode': 'require',
-     },
-   }
- }
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
-# }
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",    },
-    {        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",    },
-    {        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",    },
-    {        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",    },
+    {
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+    },
 ]
 
 # Django Allauth Config 
@@ -191,18 +194,13 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
 LANGUAGE_CODE = "en-us"
-
 TIME_ZONE = "UTC"
-
 USE_I18N = True
-
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
