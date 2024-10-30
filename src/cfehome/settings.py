@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+from typing import cast
 from urllib.parse import urlparse
 from decouple import config
 from pathlib import Path
@@ -52,6 +53,10 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'fallback-secret-key')
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = str(os.environ.get("DJANGO_DEBUG")).lower() == "true"
 DEBUG = config("DJANGO_DEBUG", cast=bool)
+
+DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
+print   ("DEBUG Set to: ", DEBUG)
+
 BASE_URL = config("BASE_URL", default=None)
 ALLOWED_HOSTS = [
     ".railway.app" # https://saas.prod.railway.app
@@ -85,6 +90,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.github',
     "widget_tweaks",
+    "slippers",
 ]
 
 MIDDLEWARE = [
@@ -128,10 +134,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Database configuration
 CONN_MAX_AGE = config("CONN_MAX_AGE", cast=int, default=300)
-DATABASE_URL = config("DATABASE_URL", default=None)
+DATABASE_URL = config("DATABASE_URL", cast=str)
 
-if DATABASE_URL:
-    import dj_database_url
+if DATABASE_URL is not None:
+    
     tmpPostgres = urlparse(DATABASE_URL)
     DATABASES = {
         'default': {
