@@ -14,8 +14,8 @@ from urllib.parse import urlparse
 from decouple import config
 from pathlib import Path
 import os
-from os import getenv
 from dotenv import load_dotenv
+load_dotenv()  # This should load your .env file
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -53,9 +53,8 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'fallback-secret-key')
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = str(os.environ.get("DJANGO_DEBUG")).lower() == "true"
 DEBUG = config("DJANGO_DEBUG", cast=bool)
-
-DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
-print   ("DEBUG Set to: ", DEBUG)
+# DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
+print("DEBUG Set to: ", DEBUG)
 
 BASE_URL = config("BASE_URL", default=None)
 ALLOWED_HOSTS = [
@@ -135,6 +134,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Database configuration
 CONN_MAX_AGE = config("CONN_MAX_AGE", cast=int, default=300)
 DATABASE_URL = config("DATABASE_URL", cast=str)
+print("DATABASE_URL Set to: ", DATABASE_URL)
 
 if DATABASE_URL is not None:
     
