@@ -3,11 +3,18 @@ Github docker YMAL
 Here’s a detailed table explaining each value you need for your deploy.yml, including explanations and examples:
 
 Value	Explanation	Example
-your_dockerhub_username	Your Docker Hub username, which is used to identify your Docker account.	yourusername
-your_image_name:latest	The name of the Docker image you are building, along with the tag (latest is common for the most recent version). This name will be used when pushing/pulling images.	yourusername/myproject:latest
+your_dockerhub_username	
+Your Docker Hub username, which is used to identify your Docker account.	
+yourusername
+your_image_name:latest	The name of the Docker image you are building, along with the tag (latest is common for the most recent version). 
+This name will be used when pushing/pulling images.	yourusername/myproject:latest
+
 ssh user@your_server	The SSH command to connect to your server where Docker is running. Replace user with your actual username and your_server with the server's IP address or hostname.	ssh deployuser@192.168.1.100
+
 secrets.DOCKER_PASSWORD	The GitHub secret that contains your Docker Hub password, used for authentication when pushing/pulling images. You should add this to your GitHub Secrets.	${{ secrets.DOCKER_PASSWORD }}
+
 secrets.DOCKER_USERNAME	The GitHub secret that contains your Docker Hub username. This is used for authentication in your workflow. You should also add this to your GitHub Secrets.	${{ secrets.DOCKER_USERNAME }}
+
 Detailed Explanation of Each Value:
 your_dockerhub_username:
 
