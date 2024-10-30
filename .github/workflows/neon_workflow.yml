@@ -1,13 +1,13 @@
 name: Create/Delete Branch for Pull Request
-
 on:
+  workflow_dispatch:  # This enables the manual trigger
   pull_request:
-    types:
+     types:
       - opened
       - reopened
       - synchronize
       - closed
-
+  
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
 
