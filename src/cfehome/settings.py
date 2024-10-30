@@ -51,12 +51,12 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'fallback-secret-key')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = str(os.environ.get("DJANGO_DEBUG")).lower() == "true"
 DEBUG = config("DJANGO_DEBUG", cast=bool)
-# DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 print("DEBUG Set to: ", DEBUG)
 
 BASE_URL = config("BASE_URL", default=None)
+print("BASE_URL Set to: ", BASE_URL)
+
 ALLOWED_HOSTS = [
     ".railway.app" # https://saas.prod.railway.app
 ]
